@@ -5,8 +5,38 @@
         {
             "name": "client",
             "image": "liorbarakprivate/multi-client",
-            "hostname": ""
+            "hostname": "client",
+            "essential": false
+        },
+
+        {
+            "name": "server",
+            "image": "liorbarakprivate/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        
+        {
+            "name": "worker",
+            "image": "liorbarakprivate/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "liorbarakprivate/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+
+
         }
+        
 
     ]
 
