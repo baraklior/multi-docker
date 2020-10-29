@@ -1,0 +1,17 @@
+{
+    "AWSEBDockerrunVersion": 2,
+
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "liorbarakprivate/multi-client",
+            "hostname": ""
+        }
+
+    ]
+
+
+
+
+}
+
