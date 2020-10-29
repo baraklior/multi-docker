@@ -1,0 +1,27 @@
+sudo: required
+services:
+    -docker
+
+before_install:
+    -docker build -t liorbarakminereye/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true liorbarakminereye/react-test npm test
+
+language: generic
+
+after_success:
+    - docker build -t liorbarakprivate/multi-client ./client
+    - docker build -t liorbarakprivate/multi-nginx ./nginx
+    - docker build -t liorbarakprivate/multi-server ./server
+    - docker build -t liorbarakprivate/multi-worker ./worker
+
+    # login to docker cli
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # take images and push to docker hub
+    -docker push liorbarakprivate/multi-client
+    -docker push liorbarakprivate/multi-nginx
+    -docker push liorbarakprivate/multi-server
+    -docker push liorbarakprivate/multi-worker
+
+
