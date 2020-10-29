@@ -1,14 +1,16 @@
 sudo: required
+language: generic
+
+
 services:
     -docker
 
 before_install:
-    -docker build -t liorbarakminereye/react-test -f ./client/Dockerfile.dev ./client
+    -docker build -t liorbarakprivate/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run -e CI=true liorbarakminereye/react-test npm test
+    - docker run -e CI=true liorbarakprivate/react-test npm test
 
-language: generic
 
 after_success:
     - docker build -t liorbarakprivate/multi-client ./client
